@@ -1,0 +1,55 @@
+{{ define "index"}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <section class="main">
+      <container>
+        <h1>Bitcoin Retirement Plan:</h1>
+        <table>
+          <form hx-post="/calculate" hx-target="#result">
+            <tr>
+              <td>Retirement Age: </td>
+              <td><input type="text" name="retirement_age" value=""> </td>
+            </tr>
+              <td>Fiat Retirement Income: </td>
+              <td><input type="text" name="fiat_retirement_income" value=""> </td>
+            </tr>
+              <td>Fiat Inflation Rate: </td>
+              <td><input type="text" name="fiat_inflation_rate" value=""> </td>
+            </tr>
+              <td>Btc Balance: </td>
+              <td><input type="text" name="btc_balance" value=""> </td>
+            </tr>
+              <td>Btc current exchange rate: </td>
+              <td><input type="text" name="btc_exchange_rate" value=""> </td>
+            </tr>
+              <td>Btc Expected yearly Growth rate: </td>
+              <td><input type="text" name="btc_growth_rate" value=""> </td>
+            </tr>
+              <td>Loan Interest Rate: </td>
+              <td><input type="text" name="loan_interest_rate" value=""> </td>
+            </tr>
+              <td>LTV: </td>
+              <td><input type="text" name="ltv" value=""> </td>
+            </tr>
+            <tr>
+             <td><button type="submit">Submit</button></td>
+            </tr>
+          </form>
+        </table>
+      </container>
+    </section>
+    <section>
+      <div id="result">
+      </div>
+    </section>
+  </body>
+</html>
+{{ end }}
