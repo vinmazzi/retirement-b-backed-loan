@@ -180,6 +180,14 @@ func (rf RestFrontend) calculate(rw http.ResponseWriter, r *http.Request) {
 
 }
 
+func (rf *RestFrontend) Index(rw http.ResponseWriter, r *http.Request) {
+	err := rf.ExecuteTemplate(rw, "index", nil)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
+}
+
 func NewRestFrontend(opts ...RestFrontendOption) (*RestFrontend, error) {
 	var restOpt RestFrontend
 
@@ -206,23 +214,8 @@ func NewRestFrontend(opts ...RestFrontendOption) (*RestFrontend, error) {
 
 	mux := mux.NewRouter()
 
-	mux.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-		err := restOpt.ExecuteTemplate(rw, "index", nil)
-		if err != nil {
-			log.Println(err.Error())
-			return
-		}
-	})
-
+	mux.HandleFunc("/", restOpt.Index).Methods("GET")
 	mux.HandleFunc("/calculate", restOpt.calculate).Methods("POST")
-
-	// mux.HandleFunc("/calculate", func(rw http.ResponseWriter, r *http.Request) {
-	// 	err := restOpt.ExecuteTemplate(rw, "result", "MY DATA")
-	// 	if err != nil {
-	// 		log.Println(err.Error())
-	// 		return
-	// 	}
-	// })
 
 	server := http.Server{
 		IdleTimeout: restOpt.timeout,
